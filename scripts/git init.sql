@@ -1,18 +1,40 @@
-IF EXISTS(SELECT OBJECT_ID('Datawarehouse','u') FROM sys.schemas)
+USE master
+GO
+
+IF (SELECT name FROM sys.databases where name='DataWarehouse') IS NOT NULL
 BEGIN
-	DROP DATABASE Datawarehouse
+	DROP DATABASE DataWarehouse
 END
-ELSE
+GO
+
+CREATE DATABASE DataWarehouse;
+GO
+USE DataWarehouse;
+GO
+
+IF (SELECT name FROM sys.schemas where name='bronze') IS NOT NULL
 BEGIN
-   CREATE DATABASE Datawarehouse;
+	DROP SCHEMA bronze;
 END
-USE Datawarehouse;
+GO
 
 CREATE SCHEMA bronze;
 GO
+
+IF (SELECT name FROM sys.schemas where name='silver') IS NOT NULL
+BEGIN
+	DROP SCHEMA silver;
+END
+GO
+
 CREATE SCHEMA silver;
 GO
-CREATE SCHEMA gold;
+
+IF (SELECT name FROM sys.schemas where name='gold') IS NOT NULL
+BEGIN
+	DROP SCHEMA gold;
+END
 GO
 
-
+CREATE SCHEMA gold;
+GO
